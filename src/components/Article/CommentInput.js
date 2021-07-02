@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: ADD_COMMENT, payload })
 });
 
-class CommentInput extends React.Component {
+class CommentInput extends React.PureComponent {
   constructor() {
     super();
     this.state = {
@@ -41,7 +41,7 @@ class CommentInput extends React.Component {
         </div>
         <div className="card-footer">
           <img
-            src={this.props.currentUser.image}
+            src={this.props.currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'}
             className="comment-author-img"
             alt={this.props.currentUser.username} />
           <button
@@ -55,4 +55,4 @@ class CommentInput extends React.Component {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(CommentInput);
+export default connect(() => ({}), mapDispatchToProps)(React.memo(CommentInput));

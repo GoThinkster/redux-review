@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
   })
 });
 
-const ArticlePreview = props => {
+const ArticlePreview = React.memo(props => {
   const article = props.article;
   const favoriteButtonClass = article.favorited ?
     FAVORITED_CLASS :
@@ -37,7 +37,7 @@ const ArticlePreview = props => {
     <div className="article-preview">
       <div className="article-meta">
         <Link to={`/@${article.author.username}`}>
-          <img src={article.author.image} alt={article.author.username} />
+          <img src={article.author.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'} alt={article.author.username} />
         </Link>
 
         <div className="info">
@@ -74,6 +74,6 @@ const ArticlePreview = props => {
       </Link>
     </div>
   );
-}
+})
 
 export default connect(() => ({}), mapDispatchToProps)(ArticlePreview);

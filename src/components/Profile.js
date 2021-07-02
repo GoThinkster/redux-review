@@ -10,7 +10,7 @@ import {
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
-const EditProfileSettings = props => {
+const EditProfileSettings = React.memo(props => {
   if (props.isUser) {
     return (
       <Link
@@ -21,9 +21,9 @@ const EditProfileSettings = props => {
     );
   }
   return null;
-};
+});
 
-const FollowUserButton = props => {
+const FollowUserButton = React.memo(props => {
   if (props.isUser) {
     return null;
   }
@@ -53,7 +53,7 @@ const FollowUserButton = props => {
       {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
     </button>
   );
-};
+});
 
 const mapStateToProps = state => ({
   ...state.articleList,
@@ -74,8 +74,8 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED })
 });
 
-class Profile extends React.Component {
-  componentWillMount() {
+class Profile extends React.PureComponent {
+  componentDidMount() {
     this.props.onLoad(Promise.all([
       agent.Profile.get(this.props.match.params.username),
       agent.Articles.byAuthor(this.props.match.params.username)
@@ -125,7 +125,7 @@ class Profile extends React.Component {
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
 
-                <img src={profile.image} className="user-img" alt={profile.username} />
+                <img src={profile.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'} className="user-img" alt={profile.username} />
                 <h4>{profile.username}</h4>
                 <p>{profile.bio}</p>
 

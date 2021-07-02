@@ -1,13 +1,13 @@
 import ArticleActions from './ArticleActions';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, {memo} from 'react';
 
 const ArticleMeta = props => {
   const article = props.article;
   return (
     <div className="article-meta">
       <Link to={`/@${article.author.username}`}>
-        <img src={article.author.image} alt={article.author.username} />
+        <img src={article.author.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'} alt={article.author.username} />
       </Link>
 
       <div className="info">
@@ -24,4 +24,4 @@ const ArticleMeta = props => {
   );
 };
 
-export default ArticleMeta;
+export default memo(ArticleMeta);
